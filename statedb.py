@@ -1,7 +1,7 @@
 """
 # statedb.py
 
-Revision 0.1.1
+Revision 0.1.2
 
 Clive Gross
 Schneider Electric
@@ -36,7 +36,7 @@ CREATE_TABLE_QUERY = """
         table_record_dt_field datetime
     );
 """
-    
+
 INSERT_RECORDS_QUERY = """
     INSERT INTO export(table_name,table_primary_key,last_export_record_id,table_record_dt_field)
     VALUES (?,?,?,?);
@@ -80,13 +80,13 @@ class StateDb(object):
         self.state_db = data_dir + STATE_DB
         self.config = config
         self.initialise_state_db()
-        
+
     def get_table_data_from_config(self):
         """
         TODO:
         Need to import the tables from the config file
-        
-        
+
+
         these are the tables to export
         # the following data for each table is required:
         # 1. table_name
@@ -123,9 +123,9 @@ class StateDb(object):
             return conn
         except Error as e:
             print(e)
-     
+
         return None
-        
+
     def create_table(self, c, create_table_sql):
         """ create a table from the create_table_sql statement
         :param c: Connection cursor
@@ -136,7 +136,7 @@ class StateDb(object):
             c.execute(create_table_sql)
         except Error as e:
             print(e)
-                    
+
     def initialise_state_db(self):
         """
         initialise state database
@@ -158,22 +158,22 @@ class StateDb(object):
         except:
             print('data already exists ')
         state_conn.close()
-        
+
     def test_state_db(self):
-        state_conn = self.create_connection()    
+        state_conn = self.create_connection()
         c = state_conn.cursor()
         c.execute('SELECT * FROM export')
         print(c.fetchall())
         state_conn.close()
-        
+
     def get_table_by_name(self, table_name):
-        state_conn = self.create_connection()    
+        state_conn = self.create_connection()
         c = state_conn.cursor()
         c.execute('SELECT table_name, table_primary_key, last_export_record_id FROM export WHERE table_name = %s;' % (table_name,))
         result = c.fetchone()
         state_conn.close()
         return result
-    
+
     def update_last_id(self, table, exporter, noneonly=False, forceones=False):
         """
         update id of last exported record
@@ -206,7 +206,7 @@ class StateDb(object):
                 max_id = exporter.last_result[0][0]
             except:
                 print('Fail')
-                    
+
         try:
             query = template_to_query(
                 QUERY_TEMPLATES['update field'],
@@ -222,7 +222,7 @@ class StateDb(object):
             print("Failed to update last ID")
         # ALWAYS CLOSE CONNECTION
         state_conn.close()
-                
+
     def update_all_last_ids(self, exporter, noneonly=False, forceones=False):
         """
         update id of last exported record
@@ -251,7 +251,7 @@ class StateDb(object):
                 print('table already has record')
         # ALWAYS CLOSE CONNECTION
         state_conn.close()
-        
+
     def get_tables(self):
         state_conn = self.create_connection()
         c = state_conn.cursor()

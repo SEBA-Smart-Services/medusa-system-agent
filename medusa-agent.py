@@ -1,7 +1,7 @@
 """
 # medusa-agent.py
 
-Revision 0.1.1
+Revision 0.1.2
 
 Clive Gross
 Schneider Electric
@@ -12,7 +12,7 @@ Schneider Electric
 
 ## Description
 This program exports data from a site SQL database, such as StruxureWareReportsDB
-and dumps into a series of csv files. The most recent data successfully exported 
+and dumps into a series of csv files. The most recent data successfully exported
 is saved in a SQLite database so that the next run only dumps newer records. The
 export directory can also be purged of files once the data is redundant.
 
@@ -24,7 +24,7 @@ a remote store, then this application purges the local data.
         ```
 		# run export db tables as csvs
         $ python medusa-agent.py export
-        
+
 		# purge exported csvs
 		$ python medusa-agent.py purge
 		```
@@ -122,7 +122,7 @@ def make_dir(path):
 	abspath = get_abspath_programdata(path)
 	if not os.path.exists(abspath):
 			os.makedirs(abspath)
-			
+
 def get_abspath_programdata(path):
 	return path.lower().replace('%programdata%', os.environ['ProgramData'])
 
@@ -137,7 +137,7 @@ if __name__ == '__main__':
     make_dir(DATA_DIR)
 
     if command is not None:
-        
+
         ################################################################
         # read in config from configfiles
         config = configparser.ConfigParser()
@@ -150,11 +150,11 @@ if __name__ == '__main__':
         # need to make DATASTORE directory if doesn't exist
         datastore_dir = get_abspath_programdata(config.get('paths', 'datastore'))
         make_dir(datastore_dir)
-        
+
         # need to make LOG directory if doesn't exist
         log_dir = get_abspath_programdata(config.get('paths', 'log'))
         make_dir(log_dir)
-        
+
         # create logger
         logger = Logger(log_dir + '\\' + 'log')
 

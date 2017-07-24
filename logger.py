@@ -1,7 +1,7 @@
 """
 # logger.py
 
-Revision 0.1.1
+Revision 0.1.2
 
 Clive Gross
 Schneider Electric
@@ -17,7 +17,7 @@ Create a logger object to write logs for an application.
 
     ```
     from logger import Logger
-    
+
     logger = Logger('path/to/logfile, loggername='myapp_log')
     logger.write('log started.')
     ```

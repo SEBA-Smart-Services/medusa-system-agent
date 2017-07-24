@@ -1,7 +1,7 @@
 """
 # dbexporter.py
 
-Revision 0.1.1
+Revision 0.1.2
 
 Clive Gross
 Schneider Electric
@@ -96,7 +96,7 @@ class DBConfigLoader(object):
 
     def set_logfile(self):
         self.logfile = self.config.get('logging', 'file')
-        
+
     def set_timeout(self):
         self.timeout = self.config.get(self.config_section, 'timeout')
 
@@ -148,9 +148,9 @@ class DBTableExporter(object):
     def query(self, query):
         """
         executes query
-        
+
         creates connection, creates cursor, executes query, save result, closes connection
-        
+
         TODO:
         - this is inefficient for bulk execution but safe, add an unsafe raw query with no open/close
         """
@@ -184,7 +184,7 @@ class DBTableExporter(object):
         query = query.replace('{{ order }}', order)
         result = self.query(query)
         return result
-        
+
     def stringify(self, value):
         if value[0] == "'" and value[-1] == "'":
             return value
@@ -192,8 +192,8 @@ class DBTableExporter(object):
             return "'" + value + "'"
 
     def get_abspath_programdata(self, path):
-        return path.lower().replace('%programdata%', os.environ['ProgramData'])    
-        
+        return path.lower().replace('%programdata%', os.environ['ProgramData'])
+
     def export_to_csv(self, outfile):
         """
         write select query results to csv
@@ -230,7 +230,7 @@ class DBTableExporter(object):
             'max id': max_id,
             'record count': len(self.last_result)
         }
-        
+
     def name_csv(self, tablename, prefix, min_id, max_id):
         """
         create name for csv file
