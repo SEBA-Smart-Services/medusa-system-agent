@@ -3,7 +3,7 @@
 ## Description
 Medusa System Agent is a tool that logs into and exports site data from a SQL database as a CSV to local storage. Once the data is cloned to remote storage (by Chimera), System Agent purges the local files.
 
-Medusa is designed to integrate with a cloud backup agent, like Chimera. System Agent can be executed before and after each backup job to prepare the data, then clean up.
+Medusa is designed to integrate with a cloud backup agent, like [Chimera](https://github.com/clivetyphon/chimera-windows). Chimera can automatically run the System Agent as an executable, before and after each backup job, to prepare the data for upload, then clean up local storage.
 
 ## Installation and setup
 
@@ -30,26 +30,28 @@ Medusa is designed to integrate with a cloud backup agent, like Chimera. System 
 5. Copy the downloaded Medusa System Agent config.ini into `%programdata%\medusa-agent`.
 
 ### Install Chimera
-1. Download the latest version of Chimera Backup Agent for Windows from [here]().
-2. On the local server, run  chimera-win-xxx.msi to install Chimera.
+1. Download the latest version of Chimera Backup Agent for Windows from [here](https://github.com/clivetyphon/chimera-windows/releases).
+2. On the local server, run  `chimera-win-xxx.msi` to install Chimera.
 3. Navigate to `%programfilesx86%\Chimera\Chimera Backup Agent\winservice` and run `install_service_xxx.bat`, where `xxx` is the OS architecture.
-4. Copy the downloaded Chimera `config.ini` into `%programfilesx86%\Chimera\Chimera Backup Agent`.
-7. Copy the downloaded Chimera job config file into `%programfilesx86%\Chimera\Chimera Backup Agent`.
-8. In Windows Services, start Chimera.
+4. Copy the downloaded Chimera config, `config.ini` into `%programfilesx86%\Chimera\Chimera Backup Agent`. The file must be named `config.ini`.
+5. In Windows Services, start Chimera.
 
 ## Troubleshooting
-Inspect the log files in `%programdata%\medusa-agent\log`.
+- Inspect the log files in `%programfilesx86%\Chimera\Chimera Backup Agent\log`.
+- Inspect the log files in `%programdata%\medusa-agent\log`.
 
 ## Custom deployments
 TODO:
 - explain config file
 - explain how to customize tables
 
-## Building from source
+## DEVELOPERS
+
+### Building from source
 Read [cx_Freeze documentation](https://cx-freeze.readthedocs.io/en/latest/).
 Run `python setup.py bdist_msi`
 
-## Releasing a new version
+### Releasing a new version
 1. On both a 32-bit and 64-bit development Windows machine, uninstall any existing versions.
 2. Develop the python application.
 3. Test the python application.
